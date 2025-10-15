@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React测试页面</title>
+  <!-- 使用CDN加载React和ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/mathjs@14.7.0/lib/browser/math.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/recharts@3.2.1/umd/Recharts.min.js" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+    }
+    .success {
+      color: green;
+      font-weight: bold;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>React环境测试</h1>
+    <p>这个页面用于快速测试React环境是否正常工作。</p>
+    
+    <div id="root"></div>
+    
+    <div id="status" class="error">
+      <p>⚠️ 等待React渲染...</p>
+    </div>
+  </div>
+
+  <script type="text/babel">
+    // 简单的测试组件
+    const TestComponent = () => {
+      return (
+        <div>
+          <h2 class="success">✓ React渲染成功！</h2>
+          <p>如果您看到此消息，说明React环境配置正确。</p>
+          <p>当前时间: {new Date().toLocaleTimeString()}</p>
+        </div>
+      );
+    };
+
+    // 尝试渲染组件
+    try {
+      ReactDOM.createRoot(document.getElementById('root')).render(
+        <React.StrictMode>
+          <TestComponent />
+        </React.StrictMode>
+      );
+      // 更新状态信息
+      document.getElementById('status').innerHTML = '<p class="success">✓ React渲染成功！</p>';
+    } catch (error) {
+      document.getElementById('status').innerHTML = `<p class="error">✗ React渲染失败: ${error.message}</p>`;
+      console.error('React渲染错误:', error);
+    }
+  </script>
+</body>
+</html>

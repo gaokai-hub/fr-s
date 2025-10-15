@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无需Git命令的GitHub Pages部署指南</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .code {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>无需Git命令的GitHub Pages部署指南</h1>
+    
+    <p>由于您的系统可能尚未安装Git，这里提供一种更简单的方法来部署您的统计Web应用到GitHub Pages。</p>
+    
+    <div class="step">
+        <h2>步骤1：构建项目</h2>
+        <p>项目已经构建完成，生成的静态文件位于 <code>dist</code> 文件夹中。</p>
+        <p>如果您需要重新构建，可以双击运行项目根目录下的 <code>build.bat</code> 文件（如果存在），或者按照以下步骤操作：</p>
+        <ol>
+            <li>打开命令提示符(cmd)或PowerShell</li>
+            <li>导航到项目目录：<code>cd C:\Users\gk\Documents\Trea CN\statistical-webapp</code></li>
+            <li>运行命令：<code>npm run build</code></li>
+        </ol>
+    </div>
+    
+    <div class="step">
+        <h2>步骤2：创建GitHub仓库</h2>
+        <ol>
+            <li>访问 <a href="https://github.com" target="_blank">GitHub.com</a> 并登录您的账号</li>
+            <li>点击右上角的 "+" 按钮，选择 "New repository"</li>
+            <li>输入仓库名称：<code>statistical-webapp</code></li>
+            <li>选择公开或私有仓库</li>
+            <li>不要勾选 "Initialize this repository with a README" 选项</li>
+            <li>点击 "Create repository" 按钮</li>
+        </ol>
+    </div>
+    
+    <div class="step">
+        <h2>步骤3：上传文件（无需Git）</h2>
+        <p>GitHub提供了直接上传文件的功能，无需使用Git命令：</p>
+        <ol>
+            <li>在新创建的仓库页面，点击 "Upload files" 按钮</li>
+            <li>在上传界面，您可以直接拖动 <code>dist</code> 文件夹中的所有文件到浏览器中</li>
+            <li>或者点击 "choose your files" 按钮，浏览到 <code>C:\Users\gk\Documents\Trea CN\statistical-webapp\dist</code> 文件夹，选择所有文件</li>
+            <li>滚动到底部，在 "Commit changes" 部分输入提交信息，例如 "首次部署"</li>
+            <li>点击 "Commit changes" 按钮上传文件</li>
+        </ol>
+    </div>
+    
+    <div class="step">
+        <h2>步骤4：配置GitHub Pages</h2>
+        <ol>
+            <li>上传完成后，返回仓库的主页面</li>
+            <li>点击顶部的 "Settings" 选项卡</li>
+            <li>在左侧导航栏中，点击 "Pages"</li>
+            <li>在 "Source" 部分，从下拉菜单中选择 "main" 或 "master" 分支</li>
+            <li>确保选择的文件夹是 "/ (root)"</li>
+            <li>点击 "Save" 按钮</li>
+            <li>等待几分钟，页面会显示您的GitHub Pages网站URL</li>
+        </ol>
+    </div>
+    
+    <div class="success">
+        <h2>部署完成！</h2>
+        <p>您的统计Web应用已经成功部署到GitHub Pages。您可以通过显示的URL访问您的网站。</p>
+        <p>注意：GitHub Pages更新可能需要几分钟时间才能生效。</p>
+    </div>
+    
+    <div class="note">
+        <h3>提示</h3>
+        <p>如果您将来想更新网站，只需重新构建项目，然后按照步骤3中的方法上传新的文件即可。</p>
+        <p>如果您想学习使用Git命令进行部署，建议您安装Git后再尝试。</p>
+    </div>
+</body>
+</html>

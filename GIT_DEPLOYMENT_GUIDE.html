@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正确的Git部署指南 - 统计分析Web应用</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 40px;
+            border-left: 5px solid #3498db;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #7f8c8d;
+            margin-top: 25px;
+        }
+        .warning-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffeaa7;
+            color: #856404;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .error-box {
+            background-color: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .success-box {
+            background-color: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .step-box {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 5px solid #28a745;
+        }
+        .command-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+            position: relative;
+        }
+        .cmd-prompt {
+            color: #68d391;
+        }
+        .cmd-input {
+            color: #63b3ed;
+            font-weight: bold;
+        }
+        .cmd-error {
+            color: #fc8181;
+        }
+        .note {
+            background-color: #e7f3fe;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .image-guide {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .numbered-steps {
+            counter-reset: step;
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .numbered-steps li {
+            counter-increment: step;
+            margin-bottom: 15px;
+            padding-left: 50px;
+            position: relative;
+        }
+        .numbered-steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #3498db;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        }
+        .folder-path {
+            background-color: #e9ecef;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        .important {
+            background-color: #fff3cd;
+            padding: 5px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            color: #856404;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin: 10px 0;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .tools-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #dee2e6;
+        }
+        .tool-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 6px;
+            border-left: 3px solid #17a2b8;
+        }
+    </style>
+</head>
+<body>
+    <h1>统计分析Web应用 - Git部署完整指南</h1>
+    
+    <div class="error-box">
+        <h3>⚠️ 重要警告</h3>
+        <p>根据您的命令输出，我们发现了一个严重问题：<br>
+        <strong>您正在用户主目录(C:\Users\gk)中初始化Git仓库，这是完全错误的做法！</strong></p>
+        <p>Git仓库应该在<strong>项目文件夹内</strong>初始化，而不是在用户主目录。请按照本指南正确操作。</p>
+    </div>
+
+    <h2>1. 问题分析</h2>
+    <div class="step-box">
+        <h3>您的错误操作：</h3>
+        <div class="command-block">
+            <span class="cmd-prompt">gk@LAPTOP-19D612NF MINGW64 ~ (master) $</span> <span class="cmd-input">git init</span><br>
+            <span class="cmd-error">Reinitialized existing Git repository in C:/Users/gk/.git/</span><br>
+            <br>
+            <span class="cmd-prompt">gk@LAPTOP-19D612NF MINGW64 ~ (master) $</span> <span class="cmd-input">git add .</span><br>
+            <span class="cmd-error">fatal: Unable to create 'C:/Users/gk/.git/index.lock': File exists.</span>
+        </div>
+        
+        <div class="note">
+            <p><strong>错误原因：</strong></p>
+            <ul>
+                <li>您在 <code>~</code> 目录（即 C:\Users\gk）下运行Git命令</li>
+                <li>这导致Git在错误的位置创建了仓库文件</li>
+                <li>由于之前的Git进程未正常结束，产生了锁定文件</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2>2. 修复与正确部署步骤</h2>
+    
+    <div class="step-box">
+        <h3>步骤1：清理用户目录中的Git仓库（重要）</h3>
+        <p>首先，我们需要清理用户目录中错误创建的Git仓库：</p>
+        
+        <div class="image-guide">
+            <h4>操作指南：</h4>
+            <ol class="numbered-steps">
+                <li>关闭所有Git Bash窗口</li>
+                <li>打开文件资源管理器</li>
+                <li>导航到：<div class="folder-path">C:\Users\gk</div></li>
+                <li>显示隐藏文件（查看 → 勾选 "隐藏的项目"）</li>
+                <li>删除 <code>.git</code> 文件夹（这是错误创建的仓库）</li>
+                <li>如果有 <code>.gitignore</code> 文件也一并删除</li>
+            </ol>
+        </div>
+        
+        <div class="warning-box">
+            <p>注意：<strong>只删除</strong> <code>.git</code> 文件夹和 <code>.gitignore</code> 文件，不要删除其他任何文件！</p>
+        </div>
+    </div>
+
+    <div class="step-box">
+        <h3>步骤2：在正确的项目目录中初始化Git仓库</h3>
+        <p>现在，让我们在<strong>正确的项目文件夹</strong>中初始化Git仓库：</p>
+        
+        <div class="image-guide">
+            <h4>操作指南：</h4>
+            <ol class="numbered-steps">
+                <li>打开文件资源管理器</li>
+                <li>导航到<strong>项目文件夹</strong>：<div class="folder-path">C:\Users\gk\Documents\Trea CN\statistical-webapp</div></li>
+                <li>在项目文件夹中，右键点击空白处</li>
+                <li>选择 <strong>Git Bash Here</strong></li>
+                <li>这将打开一个新的Git Bash窗口，现在路径应该显示为：<code>MINGW64 ~/Documents/Trea CN/statistical-webapp</code></li>
+            </ol>
+        </div>
+        
+        <div class="command-block">
+            <span class="cmd-prompt">gk@LAPTOP-19D612NF MINGW64 ~/Documents/Trea CN/statistical-webapp (master) $</span> <span class="cmd-input">git init</span>
+        </div>
+    </div>
+
+    <div class="step-box">
+        <h3>步骤3：添加文件并提交</h3>
+        <div class="command-block">
+            <span class="cmd-prompt">gk@LAPTOP-19D612NF MINGW64 ~/Documents/Trea CN/statistical-webapp (master) $</span> <span class="cmd-input">git add .</span><br>
+            <span class="cmd-prompt">gk@LAPTOP-19D612NF MINGW64 ~/Documents/Trea CN/statistical-webapp (master) $</span> <span class="cmd-input">git commit -m "首次提交：统计分析webapp"</span>
+        </div>
+        
+        <div class="warning-box">
+            <p>如果再次遇到 <code>index.lock</code> 错误，请运行项目文件夹中的 <code>fix_git_lock.bat</code> 脚本，然后重试。</p>
+        </div>
+    </div>
+
+    <div class="step-box">
+        <h3>步骤4：连接到GitHub仓库</h3>
+        <p>在GitHub上创建一个新的仓库，然后运行以下命令：</p>
+        
+        <div class="command-block">
+            <span class="cmd-prompt">gk@LAPTOP-19D612NF MINGW64 ~/Documents/Trea CN/statistical-webapp (master) $</span> <span class="cmd-input">git remote add origin https://github.com/您的用户名/您的仓库名.git</span><br>
+            <span class="cmd-prompt">gk@LAPTOP-19D612NF MINGW64 ~/Documents/Trea CN/statistical-webapp (master) $</span> <span class="cmd-input">git push -u origin master</span>
+        </div>
+        
+        <div class="note">
+            <p>请将 <code>您的用户名</code> 和 <code>您的仓库名</code> 替换为您的实际GitHub用户名和仓库名称。</p>
+        </div>
+    </div>
+
+    <div class="step-box">
+        <h3>步骤5：使用gh-pages部署（推荐）</h3>
+        <p>项目中已经配置了gh-pages依赖，您可以直接运行：</p>
+        
+        <div class="command-block">
+            <span class="cmd-prompt">gk@LAPTOP-19D612NF MINGW64 ~/Documents/Trea CN/statistical-webapp (master) $</span> <span class="cmd-input">npm run deploy</span>
+        </div>
+        
+        <div class="success-box">
+            <p>执行完成后，您的应用将自动部署到GitHub Pages！</p>
+        </div>
+    </div>
+
+    <h2>3. 可用工具脚本</h2>
+    <div class="tools-section">
+        <p>项目文件夹中提供了以下辅助脚本：</p>
+        
+        <div class="tool-item">
+            <h4>🔧 fix_git_lock.bat</h4>
+            <p>用于修复Git锁定文件问题。双击运行此脚本，它会自动尝试删除锁定文件。</p>
+        </div>
+        
+        <div class="tool-item">
+            <h4>🔧 check_git.bat</h4>
+            <p>用于检查Git是否正确安装和配置。</p>
+        </div>
+        
+        <div class="tool-item">
+            <h4>🔧 deploy_guide.bat</h4>
+            <p>提供Git安装和部署的基本指导。</p>
+        </div>
+        
+        <div class="tool-item">
+            <h4>📖 DEPLOY_TO_GITHUB_PAGES.html</h4>
+            <p>无需Git命令的部署指南，适合初学者。</p>
+        </div>
+    </div>
+
+    <h2>4. 重要注意事项</h2>
+    <div class="warning-box">
+        <h4>⚠️ 请务必遵守以下规则：</h4>
+        <ol>
+            <li><strong>永远不要</strong>在用户主目录（如 <code>C:\Users\gk</code>）中初始化Git仓库</li>
+            <li><strong>总是</strong>在具体的项目文件夹中初始化Git仓库</li>
+            <li>确保Git Bash窗口显示的路径是项目文件夹路径</li>
+            <li>如果遇到锁定问题，运行 <code>fix_git_lock.bat</code> 脚本</li>
+            <li>如果不想使用命令行，可以参考 <code>DEPLOY_TO_GITHUB_PAGES.html</code> 使用网页界面部署</li>
+        </ol>
+    </div>
+
+    <div class="success-box">
+        <h3>🎉 完成！</h3>
+        <p>按照上述步骤操作，您应该能够成功解决Git锁定问题并正确部署您的统计分析Web应用。</p>
+        <p>如果您仍然遇到问题，请重新阅读本指南，确保在<strong>正确的项目目录</strong>中操作。</p>
+    </div>
+
+    <footer style="margin-top: 50px; text-align: center; color: #666; font-size: 14px;">
+        <p>© 2023 统计分析Web应用部署指南</p>
+    </footer>
+</body>
+</html>

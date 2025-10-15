@@ -1,0 +1,32 @@
+=== SUPER SIMPLE LAUNCHER GUIDE ===
+
+This file explains how to use the '超级简单启动器.bat' file.
+
+### WHY THIS FILE EXISTS
+The previous launch scripts had Chinese characters which might cause encoding issues on some Windows systems.
+This super simple launcher uses ONLY ENGLISH text to avoid these encoding problems.
+
+### HOW TO USE
+1. Double-click the file: 超级简单启动器.bat
+2. The script will:
+   - Check if Node.js dependencies are installed
+   - Install dependencies if needed
+   - Start the development server
+3. After the server starts, open your browser and visit:
+   http://localhost:5173/
+
+### IMPORTANT NOTES
+- Make sure you have Node.js installed on your computer
+- If you don't have Node.js, download it from: https://nodejs.org/
+- To stop the server, press Ctrl+C in the command window
+
+### TROUBLESHOOTING
+- If the server fails to start, try these steps:
+  1. Open Command Prompt (Win+R, type 'cmd', press Enter)
+  2. Navigate to the project folder: cd /d "%userprofile%\Documents\Trea CN\statistical-webapp"
+  3. Run these commands one by one:
+     npm install @vitejs/plugin-react --save-dev
+     npm install
+     npm run dev
+
+This super simple launcher is designed to work on any Windows system regardless of language settings or encoding configurations.
